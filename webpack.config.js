@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
-// const copyPlugin = require('copy-webpack-plugin');
+const copyPlugin = require('copy-webpack-plugin');
 
 const env = dotenv.config().parsed;
 const envKeys = Object.keys(env).reduce((prev, next) => {
@@ -76,6 +76,15 @@ module.exports = {
             chunks: ['app'],
             inject: 'body',
             filename: 'index.html'
+        }),
+        new copyPlugin({
+            patterns: [
+                // {
+                //     from: path.resolve(__dirname, 'src/images'),
+                //     to: path.resolve(__dirname, 'dist/images')
+                // }
+                'src/.nojekyll'
+            ]
         })
     ]
 };
